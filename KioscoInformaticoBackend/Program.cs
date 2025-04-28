@@ -38,11 +38,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configurar una política de CORS
+// Configurar una política de CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("AllowSpecificOrigins",
         builder => builder
-            .AllowAnyOrigin()
+            .WithOrigins("https://kioscoale.azurewebsites.net/",
+                    "https://www.kioscoale.azurewebsites.net/",
+                    "https://localhost:7190")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -56,7 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 
