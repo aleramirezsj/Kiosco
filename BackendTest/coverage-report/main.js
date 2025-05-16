@@ -213,7 +213,7 @@ var assemblies = [
   {
     "name": "Backend",
     "classes": [
-      { "name": "Backend.Controllers.ClientesController", "rp": "Backend_ClientesController.html", "cl": 23, "ucl": 35, "cal": 58, "tl": 120, "cb": 5, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Backend.Controllers.ClientesController", "rp": "Backend_ClientesController.html", "cl": 26, "ucl": 35, "cal": 61, "tl": 124, "cb": 6, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Backend.Controllers.ComprasController", "rp": "Backend_ComprasController.html", "cl": 0, "ucl": 49, "cal": 49, "tl": 108, "cb": 0, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Backend.Controllers.DetallesComprasController", "rp": "Backend_DetallesComprasController.html", "cl": 0, "ucl": 49, "cal": 49, "tl": 108, "cb": 0, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Backend.Controllers.DetallesVentasController", "rp": "Backend_DetallesVentasController.html", "cl": 0, "ucl": 49, "cal": 49, "tl": 108, "cb": 0, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -227,7 +227,7 @@ var assemblies = [
       { "name": "KioscoInformaticoBackend.Migrations.agregamosImagenAProductos", "rp": "Backend_agregamosImagenAProductos.html", "cl": 0, "ucl": 732, "cal": 732, "tl": 797, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "KioscoInformaticoBackend.Migrations.inicio", "rp": "Backend_inicio.html", "cl": 0, "ucl": 977, "cal": 977, "tl": 1066, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "KioscoInformaticoBackend.Migrations.KioscoContextModelSnapshot", "rp": "Backend_KioscoContextModelSnapshot.html", "cl": 0, "ucl": 665, "cal": 665, "tl": 701, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Program", "rp": "Backend_Program.html", "cl": 0, "ucl": 41, "cal": 41, "tl": 67, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "Program", "rp": "Backend_Program.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 70, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Service",
@@ -265,12 +265,6 @@ var riskHotspots = [
     "metrics": [
       { "value": 1482, "exceeded": true },
       { "value": 38, "exceeded": true },
-    ]},
-  {
-    "assembly": "Backend", "class": "Backend.Controllers.ClientesController", "reportPath": "Backend_ClientesController.html", "methodName": "PutCliente()", "methodShortName": "PutCliente()", "fileIndex": 0, "line": 56,
-    "metrics": [
-      { "value": 35, "exceeded": true },
-      { "value": 8, "exceeded": false },
     ]},
 ];
 

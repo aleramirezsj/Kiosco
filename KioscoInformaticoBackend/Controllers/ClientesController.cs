@@ -54,11 +54,15 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int? id, Cliente cliente)
         {
-            if(id==null || cliente == null)
+            if (cliente == null)
             {
-                //throw new ArgumentNullException();
+                throw new ArgumentNullException();
+            }
+            if (id==null)
+            {
                 return BadRequest();
             }
+
             if (id != cliente.Id)
             {
                 return BadRequest();
