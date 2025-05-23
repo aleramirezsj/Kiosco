@@ -7,7 +7,7 @@ using Moq;
 using Service.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -175,26 +175,27 @@ namespace Backend.Tests
             // Cerrar la conexión al finalizar
             connection.Close();
         }
-        //[Fact]
-        //public async void GetCliente_NoFound()
-        //{
-        //    //*** Arrange
-        //    // Crear la base de datos y aplicar las migraciones
-        //    using (var context = new KioscoContext(options))
-        //    {
-        //        context.Database.EnsureCreated();
-        //        var clientesController = new ClientesController(context);
-        //        //***ACT
-        //        var result = await clientesController.GetCliente(1000);
-        //        //***ASSERT
-        //        //verifico que el resultado no sea nulo
-        //        Assert.NotNull(result);
-        //        //verifico que el resultado sea de tipo NotFoundResult
-        //        Assert.IsType<NotFoundResult>(result.Result);
-        //    }
-        //    // Cerrar la conexión al finalizar
-        //    connection.Close();
-        //}
+        [Fact]
+        public async void GetCliente_NoFound()
+        {
+            //*** Arrange
+            // Crear la base de datos y aplicar las migraciones
+            using (var context = new KioscoContext(options))
+            {
+                context.Database.EnsureCreated();
+                var clientesController = new ClientesController(context);
+                //***ACT
+                var result = await clientesController.GetCliente(1000);
+                //***ASSERT
+                //verifico que el resultado no sea nulo
+                Assert.NotNull(result);
+                //verifico que el resultado sea de tipo NotFoundResult
+                Assert.IsType<NotFoundResult>(result.Result);
+            }
+            // Cerrar la conexión al finalizar
+            connection.Close();
+        }
+
         [Fact]
         public async void PutCliente_BadRequest_ArgumentNull()
         {
@@ -252,5 +253,185 @@ namespace Backend.Tests
             //verifico que el resultado sea NotFound
             Assert.IsType<NotFoundResult>(result);
         }
+        [Fact]
+        public async void DeleteCliente_Id_1()
+        {
+            //*** arrange
+            // Crear la base de datos y aplicar las migraciones
+            using (var context = new KioscoContext(options))
+            {
+                context.Database.EnsureCreated();
+                var clientesController = new ClientesController(context);
+                //***ACT
+                var result = await clientesController.DeleteCliente(1);
+                //***ASSERT
+                //verifico que el resultado no sea nulo
+                Assert.NotNull(result);
+                //verifico que el resultado sea de tipo OkObjectResult
+                Assert.IsType<NoContentResult>(result);
+            }
+            // Cerrar la conexión al finalizar
+            connection.Close();
+        }
+        [Fact]
+        public async void PostCliente()
+        {
+            //*** Arrange
+            // Crear la base de datos y aplicar las migraciones
+            using (var context = new KioscoContext(options))
+            {
+                context.Database.EnsureCreated();
+                var clientesController = new ClientesController(context);
+                var cliente = new Cliente()
+                {
+                    Nombre = "Juan Fernandez",
+                    Direccion = "Av. Rivadavia 1234",
+                    Telefonos = "011-12345678",
+                    FechaNacimiento = new DateTime(1990, 1, 1),
+                    LocalidadId = 1,
+                    Eliminado = false
+                };
+                //***ACT
+                var result = await clientesController.PostCliente(cliente);
+                //***ASSERT
+                //verifico que el resultado no sea nulo
+                Assert.NotNull(result);
+                //verifico que el resultado sea de tipo CreatedAtActionResult
+                Assert.IsType<CreatedAtActionResult>(result.Result);
+                //verifico que llega un objeto del tipo cliente
+
+
+            }
+            // Cerrar la conexión al finalizar
+            connection.Close();
+        }
+        [Fact]
+        public async void PutCliente()
+        {
+            //*** Arrange
+            // Crear la base de datos y aplicar las migraciones
+            using (var context = new KioscoContext(options))
+            {
+                context.Database.EnsureCreated();
+                var clientesController = new ClientesController(context);
+                var cliente = new Cliente()
+                {
+                    Id = 1,
+                    Nombre = "Monica Mellano",
+                    Direccion = "Av. Rivadavia 1234",
+                    Telefonos = "011-12345678",
+                    FechaNacimiento = new DateTime(1990, 1, 1),
+                    LocalidadId = 1,
+                    Eliminado = false
+                };
+                //***ACT
+                var result = await clientesController.PutCliente(1, cliente);
+                //***ASSERT
+                //verifico que el resultado no sea nulo
+                Assert.NotNull(result);
+                //verifico que el resultado sea de tipo NoContentResult
+                Assert.IsType<NoContentResult>(result);
+            }
+            // Cerrar la conexión al finalizar
+            connection.Close();
+        }
+        [Fact]
+        public async void PutCliente_BadRequest()
+        {
+            //*** Arrange
+            // Crear la base de datos y aplicar las migraciones
+            using (var context = new KioscoContext(options))
+            {
+                context.Database.EnsureCreated();
+                var clientesController = new ClientesController(context);
+                var cliente = new Cliente()
+                {
+                    Id = 1,
+                    Nombre = "Juan Perez",
+                    Direccion = "Av. Rivadavia 1234",
+                    Telefonos = "011-12345678",
+                    FechaNacimiento = new DateTime(1990, 1, 1),
+                    LocalidadId = 1,
+                    Eliminado = false
+                };
+                //***ACT
+                var result = await clientesController.PutCliente(1000, cliente);
+                //***ASSERT
+                //verifico que el resultado no sea nulo
+                Assert.NotNull(result);
+                //verifico que el resultado sea de tipo BadRequestResult
+                Assert.IsType<BadRequestResult>(result);
+            }
+            // Cerrar la conexión al finalizar
+            connection.Close();
+        }
+        [Fact]
+        public async Task PutCliente_DbUpdateConcurrencyException_ClienteNoExiste_RetornaNotFound()
+        {
+            // Arrange
+            var cliente = new Cliente { Id = 1 };
+
+            // 1) Creamos una IQueryable<Cliente> vacía
+            var datos = new List<Cliente>().AsQueryable();
+            var mockSet = new Mock<DbSet<Cliente>>();
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.Provider).Returns(datos.Provider);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.Expression).Returns(datos.Expression);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.ElementType).Returns(datos.ElementType);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.GetEnumerator()).Returns(datos.GetEnumerator());
+
+            // 2) Mockeamos el contexto
+            var mockContext = new Mock<KioscoContext>(options);
+            mockContext.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
+                       .ThrowsAsync(new DbUpdateConcurrencyException());
+            mockContext.Setup(c => c.Clientes).Returns(mockSet.Object);
+
+            // 3) Configuramos el método Any() para que devuelva false (cliente no existe)
+            mockSet.Setup(m => m.Any(It.IsAny<Expression<Func<Cliente, bool>>>())).Returns(false);
+
+            var controller = new ClientesController(mockContext.Object);
+
+            // Act
+            var result = await controller.PutCliente(1, cliente);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+
+
+        [Fact]
+        public async Task PutCliente_DbUpdateConcurrencyException_ClienteExiste_LanzaExcepcion()
+        {
+            // Arrange
+            var cliente = new Cliente { Id = 1 };
+
+            // 1) Creamos una IQueryable<Cliente> con un solo elemento
+            var datos = new List<Cliente> { cliente }.AsQueryable();
+            var mockSet = new Mock<DbSet<Cliente>>();
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.Provider).Returns(datos.Provider);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.Expression).Returns(datos.Expression);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.ElementType).Returns(datos.ElementType);
+            mockSet.As<IQueryable<Cliente>>().Setup(m => m.GetEnumerator()).Returns(datos.GetEnumerator());
+
+            // 2) Mockeamos el contexto igual que antes
+            var mockContext = new Mock<KioscoContext>(options);
+            mockContext
+               .Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()))
+               .ThrowsAsync(new DbUpdateConcurrencyException());
+            mockContext.Setup(c => c.Clientes).Returns(mockSet.Object);
+
+            var controller = new ClientesController(mockContext.Object);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DbUpdateConcurrencyException>(
+                () => controller.PutCliente(1, cliente)
+            );
+        }
+
+
+
+
+
+
     }
 }
