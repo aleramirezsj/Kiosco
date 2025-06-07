@@ -10,20 +10,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Desktop.Interfaces;
+using Desktop.States.Localidades;
 
 namespace KioscoInformaticoDesktop.Views
 {
     public partial class LocalidadesView : Form
     {
-        ILocalidadService localidadService = new LocalidadService();
-        BindingSource listaLocalidades = new BindingSource();
-        Localidad localidadCurrent;
+        public IFormState initialDisplayState;
+        public IFormState addState;
+        public IFormState editState;
+        public IFormState deleteState;
+
+        public IFormState currentState;
+
+        public ILocalidadService localidadService = new LocalidadService();
+        public BindingSource listaLocalidades = new BindingSource();
+        public Localidad localidadCurrent;
 
         public LocalidadesView()
         {
             InitializeComponent();
+            initialDisplayState = new InitialDisplayState(this);
+            addState = new AddState(this);
+            editState = new EditState(this);
+            deleteState = new DeleteState(this);
+
+            currentState = initialDisplayState;
+
             dataGridLocalidades.DataSource = listaLocalidades;
             CargarGrilla();
+        }
+
+        public void SetState(IFormState state)
+        {
+            currentState = state ?? throw new ArgumentNullException(nameof(state), "El estado no puede ser nulo.");
         }
 
         private async Task CargarGrilla()
