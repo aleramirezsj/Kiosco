@@ -18,13 +18,11 @@ namespace Desktop.States.Localidades
         {
             _form = form ?? throw new ArgumentNullException(nameof(form), "El formulario no puede ser nulo.");
         }
-       
 
         public async void OnBuscar()
         {
             await UpdateUI();
         }
-
 
         public void OnSalir()
         {

@@ -46,8 +46,6 @@ namespace KioscoInformaticoDesktop.Views
             currentState = state ?? throw new ArgumentNullException(nameof(state), "El estado no puede ser nulo.");
         }
 
-
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             SetState(addState);
@@ -57,38 +55,12 @@ namespace KioscoInformaticoDesktop.Views
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
             currentState.OnGuardar();
-            //if (string.IsNullOrEmpty(txtNombre.Text))
-            //{
-            //    MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-            //if (localidadCurrent != null)
-            //{
-            //    localidadCurrent.Nombre = txtNombre.Text;
-            //    await localidadService.UpdateAsync(localidadCurrent);
-            //    localidadCurrent = null;
-            //}
-            //else
-            //{
-            //    var localidad = new Localidad
-            //    {
-            //        Nombre = txtNombre.Text
-            //    };
-            //    await localidadService.AddAsync(localidad);
-            //}
-            //await CargarGrilla();
-            //txtNombre.Text = string.Empty;
-            //tabControl.SelectTab(tabPageLista);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             SetState(editState);
             currentState.OnModificar();
-            //localidadCurrent = (Localidad)listaLocalidades.Current;
-            //txtNombre.Text = localidadCurrent.Nombre;
-            //tabControl.SelectTab(tabPageAgregarEditar);
         }
 
         private async void btnEliminar_Click(object sender, EventArgs e)
@@ -100,10 +72,6 @@ namespace KioscoInformaticoDesktop.Views
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             currentState.OnCancelar();
-            //localidadCurrent = null;
-            //txtNombre.Text = string.Empty;
-            //tabControl.SelectTab(tabPageLista);
-
         }
 
         private void BtnBuscar_Click(object sender, EventArgs e)
@@ -111,6 +79,9 @@ namespace KioscoInformaticoDesktop.Views
             currentState.OnBuscar();
         }
 
-
+        private void iconButtonSalir_Click(object sender, EventArgs e)
+        {
+            currentState.OnSalir();
+        }
     }
 }
