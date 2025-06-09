@@ -29,7 +29,7 @@ namespace KioscoInformaticoDesktop.ViewReports
 
         private async void LocalidadesViewReport_Load(object sender, EventArgs e)
         {
-            reporte.LocalReport.ReportEmbeddedResource = "KioscoInformaticoDesktop.Reports.LocalidadesReport.rdlc";
+            reporte.LocalReport.ReportEmbeddedResource = "Desktop.Reports.LocalidadesReport.rdlc";
             var localidades = await localidadService.GetAllAsync();
             reporte.LocalReport.DataSources.Add(new ReportDataSource("DSLocalidades", localidades));
             reporte.SetDisplayMode(DisplayMode.PrintLayout);
