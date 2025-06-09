@@ -53,7 +53,7 @@ namespace KioscoInformaticoDesktop.Views
             {
 
                 ReportViewer reporte = new ReportViewer();
-                reporte.LocalReport.ReportEmbeddedResource = "KioscoInformaticoDesktop.Reports.LocalidadesReport.rdlc";
+                reporte.LocalReport.ReportEmbeddedResource = "Desktop.Reports.LocalidadesReport.rdlc";
                 var localidades = new List<Localidad> { new Localidad() { Id=1, Nombre="San Justo"} };
                 reporte.LocalReport.DataSources.Add(new ReportDataSource("DSLocalidades", localidades));
                 reporte.SetDisplayMode(DisplayMode.PrintLayout);
