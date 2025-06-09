@@ -1,5 +1,6 @@
 ﻿using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
+using Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,49 +17,27 @@ namespace Desktop.States.Localidades
         {
             _form = form ?? throw new ArgumentNullException(nameof(form), "El formulario no puede ser nulo.");
         }
-        public void LoadGrid()
+        public void OnAgregar() { }
+        public void OnBuscar() { }
+        public void OnCancelar() { }
+        public async void OnEliminar()
         {
-            throw new NotImplementedException();
+            var localidad = (Localidad)_form.listaLocalidades.Current;
+            var result = MessageBox.Show($"¿Está seguro que desea eliminar la localidad {localidad.Nombre}?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                await _form.localidadService.DeleteAsync(localidad.Id);
+                _form.SetState(_form.initialDisplayState);
+                await _form.currentState.UpdateUI();
+            }
+            else
+            {
+                _form.SetState(_form.initialDisplayState);
+            }
         }
-
-        public void OnAgregar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnBuscar(string texto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnCancelar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnEliminar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnGuardar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnModificar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnSalir()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateUI()
-        {
-            throw new NotImplementedException();
-        }
+        public void OnGuardar() { }
+        public void OnModificar() { }
+        public void OnSalir() { }
+        public Task UpdateUI() { return Task.CompletedTask; }
     }
 }

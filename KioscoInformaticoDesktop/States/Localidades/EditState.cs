@@ -1,5 +1,6 @@
 ﻿using Desktop.Interfaces;
 using KioscoInformaticoDesktop.Views;
+using Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,49 +18,41 @@ namespace Desktop.States.Localidades
             _form = form ?? throw new ArgumentNullException(nameof(form), "El formulario no puede ser nulo.");
         }
 
-        public void LoadGrid()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnAgregar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnBuscar(string texto)
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnCancelar()
         {
-            throw new NotImplementedException();
+            _form.txtNombre.Clear();
+            _form.SetState(_form.initialDisplayState);
+            _form.currentState.UpdateUI();
+
         }
 
-        public void OnEliminar()
+        public async void OnGuardar()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(_form.txtNombre.Text))
+            {
+                MessageBox.Show("El nombre de la localidad es obligatorio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _form.localidadCurrent.Nombre = _form.txtNombre.Text;
+
+            await _form.localidadService.UpdateAsync(_form.localidadCurrent);
+            _form.SetState(_form.initialDisplayState);
+            await _form.currentState.UpdateUI();
         }
 
-        public void OnGuardar()
+        public Task UpdateUI()
         {
-            throw new NotImplementedException();
+            _form.tabControl.SelectTab(_form.tabPageAgregarEditar);
+            return Task.CompletedTask;
         }
 
-        public void OnModificar()
-        {
-            throw new NotImplementedException();
+        public void OnAgregar() {}
+        public void OnBuscar() { }
+        public void OnSalir() { }
+        public void OnModificar() {
+            UpdateUI();
         }
-
-        public void OnSalir()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateUI()
-        {
-            throw new NotImplementedException();
-        }
+        public void OnEliminar() { }
     }
 }

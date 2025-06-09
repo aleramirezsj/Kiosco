@@ -18,48 +18,30 @@ namespace Desktop.States.Localidades
         {
             _form = form ?? throw new ArgumentNullException(nameof(form), "El formulario no puede ser nulo.");
         }
-        public async void LoadGrid()
+       
+
+        public async void OnBuscar()
         {
-            _form.listaLocalidades.DataSource = await _form.localidadService.GetAllAsync();
-            _form.dataGridLocalidades.DataSource = _form.listaLocalidades;
+            await UpdateUI();
         }
 
-        public void OnAgregar()
-        {
-            _form.SetState(_form.addState);
-            _form.currentState.OnAgregar();
-        }
-
-        public async void OnBuscar(string texto)
-        {
-            _form.listaLocalidades.DataSource = await _form.localidadService.GetAllAsync(_form.txtFiltro.Text);
-            _form.dataGridLocalidades.DataSource = _form.listaLocalidades;
-        }
-
-        public void OnCancelar() {}
-
-        public void OnEliminar()
-        {
-            _form.SetState(_form.deleteState);
-            _form.currentState.OnEliminar();
-        }
-
-        public void OnGuardar() {}
-
-        public void OnModificar()
-        {
-            _form.SetState(_form.editState);
-            _form.currentState.OnModificar();
-        }
 
         public void OnSalir()
         {
             _form.Close();
         }
 
-        public void UpdateUI()
+        public async Task UpdateUI()
         {
-            this.LoadGrid();
+            _form.listaLocalidades.DataSource = await _form.localidadService.GetAllAsync(_form.txtFiltro.Text);
+            _form.dataGridLocalidades.DataSource = _form.listaLocalidades;
+            _form.tabControl.SelectTab(_form.tabPageLista);
         }
+
+        public void OnAgregar() { }
+        public void OnCancelar() { }
+        public void OnGuardar() { }
+        public void OnModificar() { }
+        public void OnEliminar() { }
     }
 }

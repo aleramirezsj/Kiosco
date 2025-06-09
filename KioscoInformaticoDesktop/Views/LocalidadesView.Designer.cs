@@ -154,12 +154,11 @@
             // 
             // txtFiltro
             // 
-            txtFiltro.Location = new Point(224, 22);
-            txtFiltro.Margin = new Padding(4, 4, 4, 4);
+            txtFiltro.Location = new Point(210, 26);
+            txtFiltro.Margin = new Padding(4);
             txtFiltro.Name = "txtFiltro";
             txtFiltro.Size = new Size(603, 31);
             txtFiltro.TabIndex = 11;
-            txtFiltro.TextChanged += txtFiltro_TextChanged;
             // 
             // btnEliminar
             // 
@@ -319,10 +318,6 @@
 
         private Panel panel1;
         private Label label1;
-        private TabControl tabControl;
-        private TabPage tabPageLista;
-        private TabPage tabPageAgregarEditar;
-        private TextBox txtNombre;
         private Label label2;
         private FontAwesome.Sharp.IconButton btnCancelar;
         private FontAwesome.Sharp.IconButton btnGuardar;
@@ -334,5 +329,9 @@
         private Label label3;
         public TextBox txtFiltro;
         public DataGridView dataGridLocalidades;
+        public TabControl tabControl;
+        public TabPage tabPageLista;
+        public TabPage tabPageAgregarEditar;
+        public TextBox txtNombre;
     }
 }

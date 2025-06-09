@@ -8,14 +8,13 @@ namespace Desktop.Interfaces
 {
     public interface IFormState
     {
-        void LoadGrid();
-        void OnBuscar(string texto);
+        void OnBuscar();
         void OnAgregar();
         void OnModificar();
         void OnEliminar();
         void OnGuardar();
         void OnCancelar();
         void OnSalir();
-        void UpdateUI();
+        Task UpdateUI();
     }
 }
