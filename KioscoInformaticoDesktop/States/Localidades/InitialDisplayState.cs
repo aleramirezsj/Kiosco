@@ -34,6 +34,19 @@ namespace Desktop.States.Localidades
             _form.listaLocalidades.DataSource = await _form.localidadService.GetAllAsync(_form.txtFiltro.Text);
             _form.dataGridLocalidades.DataSource = _form.listaLocalidades;
             _form.tabControl.SelectTab(_form.tabPageLista);
+            _form.tabControl.Selecting+= (sender, e) =>
+            {
+                if (e.TabPage == _form.tabPageAgregarEditar)
+                    if (_form.currentState==_form.initialDisplayState)
+                {
+                    e.Cancel=true;
+                }
+                if (e.TabPage == _form.tabPageLista)
+                    if(_form.currentState==_form.addState||_form.currentState==_form.editState)
+                {
+                    e.Cancel = true;
+                }
+            };
         }
 
         public void OnAgregar() { }
