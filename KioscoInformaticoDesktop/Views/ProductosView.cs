@@ -30,7 +30,7 @@ namespace KioscoInformaticoDesktop.Views
 
         private async Task CargarGrilla()
         {
-            ListProductos.DataSource = await productoService.GetAllAsync();
+            ListProductos.DataSource = await productoService.GetAllAsync(txtFiltro.Text);
             ListaAFiltrar = (List<Producto>)ListProductos.DataSource;
 
         }

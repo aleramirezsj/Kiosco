@@ -24,7 +24,7 @@ namespace KioscoInformaticoDesktop.Views
 
         public IFormState currentState;
 
-        public ILocalidadService localidadService = new LocalidadService();
+        public GenericService<Localidad> localidadService = new GenericService<Localidad>();
         public BindingSource listaLocalidades = new BindingSource();
         public Localidad localidadCurrent;
 

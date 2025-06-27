@@ -15,8 +15,8 @@ namespace KioscoInformaticoDesktop.Views
 {
     public partial class ProveedoresView : Form
     {
-        IProveedorService proveedorService = new ProveedorService();
-        ILocalidadService localidadService = new LocalidadService();
+        IGenericService<Proveedor> proveedorService = new GenericService<Proveedor>();
+        IGenericService<Localidad> localidadService = new GenericService<Localidad>();
         BindingSource ListProveedores = new BindingSource();
         Proveedor proveedorCurrent;
         public ProveedoresView()
@@ -29,7 +29,7 @@ namespace KioscoInformaticoDesktop.Views
 
         private async Task CargarCombo()
         {
-            comboLocalidades.DataSource = await localidadService.GetAllAsync();
+            comboLocalidades.DataSource = await localidadService.GetAllAsync(string.Empty);
             comboLocalidades.DisplayMember = "Nombre";
             comboLocalidades.ValueMember = "Id";
             comboLocalidades.SelectedIndex = -1;
@@ -38,7 +38,7 @@ namespace KioscoInformaticoDesktop.Views
 
         private async Task CargarGrilla()
         {
-            var proveedores = await proveedorService.GetAllAsync(null);
+            var proveedores = await proveedorService.GetAllAsync(txtFiltro.Text);
             ListProveedores.DataSource = proveedores;
             dataGridProveedoresView.Columns[6].Visible = false;
         }

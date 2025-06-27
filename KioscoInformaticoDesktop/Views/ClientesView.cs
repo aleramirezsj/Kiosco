@@ -16,8 +16,8 @@ namespace KioscoInformaticoDesktop.Views
 {
     public partial class ClientesView : Form
     {
-        IClienteService clienteService = new ClienteService();
-        ILocalidadService localidadService = new LocalidadService();
+        IGenericService<Cliente> clienteService = new GenericService<Cliente>();
+        IGenericService<Localidad> localidadService = new GenericService<Localidad>();
         BindingSource ListClientes = new BindingSource();
         Cliente clienteCurrent;
         public ClientesView()
@@ -30,14 +30,14 @@ namespace KioscoInformaticoDesktop.Views
 
         private async Task CargarCombo()
         {
-            comboLocalidades.DataSource = await localidadService.GetAllAsync();
+            comboLocalidades.DataSource = await localidadService.GetAllAsync(string.Empty);
             comboLocalidades.DisplayMember = "Nombre";
             comboLocalidades.ValueMember = "Id";
         }
 
         private async Task CargarGrilla()
         {
-            var clientes = await clienteService.GetAllAsync(null);
+            var clientes = await clienteService.GetAllAsync(txtFiltro.Text);
             ListClientes.DataSource = clientes;
             dataGridClientesView.Columns[5].Visible = false;
         }
